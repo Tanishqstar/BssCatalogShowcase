@@ -215,26 +215,41 @@ export default function BssOssShowcase() {
 
           {/* Tab Navigation */}
           <div className="flex justify-center mb-12">
-            <div className="flex bg-[#A0B3BD] rounded-2xl p-3 gap-3">
+            <div className="flex gap-1">
               {tabs.map((tab, index) => (
                 <motion.div
                   key={tab.id}
-                  className="relative overflow-hidden"
+                  className="relative overflow-hidden rounded-2xl"
                   animate={{
                     width: activeTab === index ? 280 : 120
                   }}
                   transition={{ duration: 0.6, ease: "easeInOut" }}
+                  style={{
+                    backgroundColor: activeTab === index 
+                      ? `${tab.bgColor}40` // Light shade for background
+                      : tab.bgColor
+                  }}
                 >
+                  {/* Progress Fill Background */}
+                  {activeTab === index && (
+                    <motion.div
+                      className="absolute inset-0 rounded-2xl"
+                      style={{ backgroundColor: tab.bgColor }}
+                      initial={{ width: "0%" }}
+                      animate={{ width: `${progress}%` }}
+                      transition={{ duration: 0.1, ease: "linear" }}
+                    />
+                  )}
+                  
                   <motion.button
-                    className="h-12 w-full flex items-center rounded-xl transition-all duration-300 overflow-hidden"
-                    style={{ backgroundColor: '#ffffff' }}
+                    className="h-12 w-full flex items-center rounded-2xl transition-all duration-300 overflow-hidden relative z-10"
                     onClick={() => handleTabClick(index)}
                     whileTap={{ scale: 0.98 }}
                   >
                     {/* Icon Block */}
                     <div 
                       className="w-10 h-10 rounded-xl flex items-center justify-center flex-shrink-0 ml-1"
-                      style={{ backgroundColor: tab.bgColor }}
+                      style={{ backgroundColor: activeTab === index ? 'rgba(255,255,255,0.3)' : 'rgba(255,255,255,0.5)' }}
                     >
                       <div className="text-gray-700">
                         {tab.icon}
@@ -245,7 +260,7 @@ export default function BssOssShowcase() {
                     <motion.div 
                       className="flex-1 px-3 overflow-hidden"
                       animate={{
-                        opacity: activeTab === index ? 1 : 0.7
+                        opacity: activeTab === index ? 1 : 0.8
                       }}
                       transition={{ duration: 0.3 }}
                     >
@@ -254,18 +269,6 @@ export default function BssOssShowcase() {
                       </span>
                     </motion.div>
                   </motion.button>
-                  
-                  {/* Progress Bar */}
-                  {activeTab === index && (
-                    <div className="absolute bottom-1 left-1 right-1 h-0.5 bg-gray-300 rounded-full overflow-hidden">
-                      <motion.div 
-                        className="h-full bg-gray-600 rounded-full"
-                        initial={{ width: "0%" }}
-                        animate={{ width: `${progress}%` }}
-                        transition={{ duration: 0.1, ease: "linear" }}
-                      />
-                    </div>
-                  )}
                 </motion.div>
               ))}
             </div>

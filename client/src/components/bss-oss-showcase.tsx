@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { FileText, Zap, Layers, Calendar, Film, Apple, Podcast } from 'lucide-react';
+import { FileText, Zap, Layers, Calendar, Film, Apple, Podcast, Moon, Sun } from 'lucide-react';
 
 interface TabData {
   id: string;
@@ -170,6 +170,7 @@ const tabs: TabData[] = [
 export default function BssOssShowcase() {
   const [activeTab, setActiveTab] = useState(0);
   const [progress, setProgress] = useState(0);
+  const [isDark, setIsDark] = useState(false);
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -190,8 +191,37 @@ export default function BssOssShowcase() {
     setProgress(0);
   };
 
+  const toggleTheme = () => {
+    setIsDark(!isDark);
+  };
+
   return (
-    <div className="min-h-screen bg-primary-custom flex flex-col">
+    <div className={`min-h-screen flex flex-col transition-colors duration-300 ${isDark ? 'bg-gray-900' : 'bg-primary-custom'}`}>
+      {/* Dark Mode Toggle */}
+      <motion.div
+        className="fixed top-8 right-8 z-50"
+        initial={{ opacity: 0, scale: 0.8 }}
+        animate={{ opacity: 1, scale: 1 }}
+        transition={{ delay: 0.5, duration: 0.4 }}
+      >
+        <motion.button
+          onClick={toggleTheme}
+          className={`w-12 h-12 rounded-xl flex items-center justify-center transition-all duration-300 border ${
+            isDark 
+              ? 'bg-gray-800 border-gray-700 hover:bg-gray-700' 
+              : 'bg-white/20 border-white/30 hover:bg-white/30'
+          } backdrop-blur-sm`}
+          whileHover={{ scale: 1.05 }}
+          whileTap={{ scale: 0.95 }}
+        >
+          {isDark ? (
+            <Sun className="w-5 h-5 text-yellow-400" />
+          ) : (
+            <Moon className="w-5 h-5 text-gray-700" />
+          )}
+        </motion.button>
+      </motion.div>
+
       {/* Main Content Area */}
       <div className="flex-1 flex items-center justify-center px-6 py-20">
         <div className="max-w-7xl w-full">

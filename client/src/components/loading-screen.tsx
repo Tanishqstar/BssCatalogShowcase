@@ -7,25 +7,34 @@ interface LoadingScreenProps {
 
 export default function LoadingScreen({ onComplete }: LoadingScreenProps) {
   const [progress, setProgress] = useState(0);
-  const [currentNumber, setCurrentNumber] = useState(0);
+  const [displayNumber, setDisplayNumber] = useState(0);
+  const [showProgressBar, setShowProgressBar] = useState(false);
   const [isComplete, setIsComplete] = useState(false);
 
   useEffect(() => {
     const duration = 3000; // 3 seconds
-    const interval = 50; // Update every 50ms
+    const interval = 16; // 60fps for smooth animation
     const increment = 100 / (duration / interval);
 
     const timer = setInterval(() => {
       setProgress(prev => {
         const next = prev + increment;
-        setCurrentNumber(Math.floor(next));
+        
+        // Smooth rolling numbers
+        setDisplayNumber(next);
         
         if (next >= 100) {
           clearInterval(timer);
+          setDisplayNumber(100);
+          // Show progress bar when 100% is reached
           setTimeout(() => {
-            setIsComplete(true);
-            setTimeout(onComplete, 500);
-          }, 500);
+            setShowProgressBar(true);
+            // Complete after bar animation
+            setTimeout(() => {
+              setIsComplete(true);
+              setTimeout(onComplete, 300);
+            }, 1200);
+          }, 200);
           return 100;
         }
         return next;
@@ -47,21 +56,63 @@ export default function LoadingScreen({ onComplete }: LoadingScreenProps) {
           transition={{ duration: 0.5 }}
         >
           {/* Central Number Display */}
-          <div className="fixed inset-0 flex items-center justify-center">
+          <div className="fixed inset-0 flex items-center justify-center flex-col">
             <motion.div
-              key={currentNumber}
-              initial={{ scale: 0.9, opacity: 0 }}
-              animate={{ scale: 1, opacity: 1 }}
-              transition={{ duration: 0.2 }}
               className="font-mono text-9xl font-thin text-foreground tracking-wider"
               style={{ 
                 fontStretch: 'ultra-condensed',
                 letterSpacing: '0.1em'
               }}
+              animate={{
+                opacity: showProgressBar ? 0 : 1,
+                scale: showProgressBar ? 0.8 : 1
+              }}
+              transition={{ duration: 0.3 }}
             >
-              {currentNumber.toString().padStart(2, '0')}
+              {Math.floor(displayNumber).toString().padStart(2, '0')}
             </motion.div>
+
+            {/* Progress Bar */}
+            <AnimatePresence>
+              {showProgressBar && (
+                <motion.div
+                  className="mt-8"
+                  initial={{ opacity: 0, scale: 0 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  transition={{ duration: 0.5, ease: "easeOut" }}
+                >
+                  <motion.div
+                    className="h-1 bg-foreground rounded-full"
+                    initial={{ width: 0 }}
+                    animate={{ width: "400px" }}
+                    transition={{ 
+                      duration: 1,
+                      ease: "easeInOut"
+                    }}
+                  />
+                </motion.div>
+              )}
+            </AnimatePresence>
           </div>
+
+          {/* Website Preview (appears when bar completes) */}
+          <AnimatePresence>
+            {showProgressBar && (
+              <motion.div
+                className="fixed inset-0 bg-background"
+                initial={{ opacity: 0, scale: 0.9 }}
+                animate={{ opacity: 0.3, scale: 1 }}
+                transition={{ delay: 0.8, duration: 0.4 }}
+              >
+                <div className="w-full h-full flex items-center justify-center filter blur-sm">
+                  <div className="text-center space-y-6">
+                    <h1 className="text-5xl font-bold text-foreground">BSS/OSS</h1>
+                    <h2 className="text-4xl font-bold text-muted-foreground">Platform</h2>
+                  </div>
+                </div>
+              </motion.div>
+            )}
+          </AnimatePresence>
         </motion.div>
       )}
     </AnimatePresence>

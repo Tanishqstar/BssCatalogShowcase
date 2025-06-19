@@ -35,24 +35,38 @@ export default function LoadingScreen({ onComplete }: LoadingScreenProps) {
     return () => clearInterval(timer);
   }, [onComplete]);
 
-  // Calculate L-shape clip path
+  // Calculate progressive L-shape clip path
   const getLShapeClipPath = (progress: number) => {
     if (progress === 0) return 'polygon(0 0, 0 0, 0 0, 0 0)';
     
-    const size = Math.min(progress * 1.2, 100);
     const centerX = 50;
     const centerY = 50;
-    const halfSize = size / 2;
     
-    // L-shape: 4 squares arranged in L formation
-    return `polygon(
-      ${centerX - halfSize}% ${centerY - halfSize}%, 
-      ${centerX}% ${centerY - halfSize}%, 
-      ${centerX}% ${centerY}%, 
-      ${centerX + halfSize}% ${centerY}%, 
-      ${centerX + halfSize}% ${centerY + halfSize}%, 
-      ${centerX - halfSize}% ${centerY + halfSize}%
-    )`;
+    if (progress < 100) {
+      // Start as a rectangle that grows from center
+      const size = progress * 0.8; // Scale down for smoother animation
+      const halfWidth = size * 0.6;
+      const halfHeight = size * 0.4;
+      
+      return `polygon(
+        ${centerX - halfWidth}% ${centerY - halfHeight}%, 
+        ${centerX + halfWidth}% ${centerY - halfHeight}%, 
+        ${centerX + halfWidth}% ${centerY + halfHeight}%, 
+        ${centerX - halfWidth}% ${centerY + halfHeight}%
+      )`;
+    } else {
+      // At 100%, quickly transform to L-shape
+      const baseSize = 40; // Fixed size for L-shape
+      
+      return `polygon(
+        ${centerX - baseSize}% ${centerY - baseSize}%, 
+        ${centerX}% ${centerY - baseSize}%, 
+        ${centerX}% ${centerY}%, 
+        ${centerX + baseSize}% ${centerY}%, 
+        ${centerX + baseSize}% ${centerY + baseSize}%, 
+        ${centerX - baseSize}% ${centerY + baseSize}%
+      )`;
+    }
   };
 
   return (
@@ -97,7 +111,10 @@ export default function LoadingScreen({ onComplete }: LoadingScreenProps) {
                 style={{
                   clipPath: getLShapeClipPath(progress)
                 }}
-                transition={{ duration: 0.1 }}
+                transition={{ 
+                  duration: progress === 100 ? 0.8 : 0.1,
+                  ease: progress === 100 ? "easeInOut" : "linear"
+                }}
               />
             </div>
           </div>

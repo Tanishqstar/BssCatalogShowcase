@@ -1,4 +1,4 @@
-import { ChevronUp, Plus, X, Code, Trophy, Users, BookOpen } from 'lucide-react';
+import { ChevronUp, Plus, X, Code, Trophy, Users, BookOpen, ExternalLink, Instagram, Linkedin } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useState } from 'react';
 
@@ -14,7 +14,7 @@ export default function FloatingNavigation() {
   };
 
   const handleBookMeeting = () => {
-    console.log('Book meeting clicked');
+    setActivePopup('contact');
   };
 
   const closePopup = () => {
@@ -183,6 +183,101 @@ export default function FloatingNavigation() {
                     whileTap={{ scale: 0.98 }}
                   >
                     View Code
+                  </motion.button>
+                </div>
+              </div>
+            </motion.div>
+          </motion.div>
+        )}
+
+        {/* Contact Card Modal */}
+        {activePopup === 'contact' && (
+          <motion.div
+            className="fixed inset-0 bg-black/50 backdrop-blur-sm z-40 flex items-center justify-center p-4"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            onClick={closePopup}
+          >
+            <motion.div
+              className="bg-nav-bg border border-gray-700 rounded-2xl p-6 max-w-sm w-full"
+              initial={{ scale: 0.9, opacity: 0, y: 20 }}
+              animate={{ scale: 1, opacity: 1, y: 0 }}
+              exit={{ scale: 0.9, opacity: 0, y: 20 }}
+              onClick={(e) => e.stopPropagation()}
+            >
+              <div className="space-y-6">
+                {/* Header */}
+                <div className="flex justify-between items-start">
+                  <div className="flex items-center gap-3">
+                    <div className="w-12 h-12 bg-gradient-to-br from-cta-cyan to-blue-500 rounded-full flex items-center justify-center">
+                      <span className="text-gray-900 font-bold text-lg">TG</span>
+                    </div>
+                    <div>
+                      <h3 className="text-xl font-bold text-white font-mono">Tanishq Gohil</h3>
+                      <p className="text-gray-400 text-sm font-mono">Full Stack Developer</p>
+                    </div>
+                  </div>
+                  <button
+                    onClick={closePopup}
+                    className="text-gray-400 hover:text-white transition-colors"
+                  >
+                    <X size={20} />
+                  </button>
+                </div>
+
+                {/* Contact Info */}
+                <div className="space-y-4">
+                  <div className="bg-gray-800/30 rounded-xl p-4 border border-gray-700">
+                    <p className="text-gray-300 font-mono text-sm leading-relaxed">
+                      BSS/OSS Platform Developer specializing in telecom solutions, 
+                      billing systems, and enterprise software architecture.
+                    </p>
+                  </div>
+
+                  {/* Social Links */}
+                  <div className="space-y-3">
+                    <motion.a
+                      href="https://www.linkedin.com/in/tanishq-gohil28/"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="flex items-center gap-3 p-3 bg-gray-800/50 rounded-xl border border-gray-700 hover:bg-gray-700/50 transition-colors group"
+                      whileHover={{ scale: 1.02 }}
+                      whileTap={{ scale: 0.98 }}
+                    >
+                      <Linkedin size={20} className="text-cta-cyan" />
+                      <div className="flex-1">
+                        <span className="text-white font-mono text-sm">LinkedIn</span>
+                        <p className="text-gray-400 text-xs">Connect professionally</p>
+                      </div>
+                      <ExternalLink size={16} className="text-gray-400 group-hover:text-cta-cyan transition-colors" />
+                    </motion.a>
+
+                    <motion.a
+                      href="https://instagram.com/tanishq.js"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="flex items-center gap-3 p-3 bg-gray-800/50 rounded-xl border border-gray-700 hover:bg-gray-700/50 transition-colors group"
+                      whileHover={{ scale: 1.02 }}
+                      whileTap={{ scale: 0.98 }}
+                    >
+                      <Instagram size={20} className="text-cta-cyan" />
+                      <div className="flex-1">
+                        <span className="text-white font-mono text-sm">@tanishq.js</span>
+                        <p className="text-gray-400 text-xs">Follow for tech updates</p>
+                      </div>
+                      <ExternalLink size={16} className="text-gray-400 group-hover:text-cta-cyan transition-colors" />
+                    </motion.a>
+                  </div>
+
+                  {/* CTA Button */}
+                  <motion.button
+                    className="w-full bg-cta-cyan text-gray-900 px-6 py-4 rounded-xl font-mono font-bold text-sm uppercase tracking-wider hover:bg-cta-cyan/90 transition-colors"
+                    whileHover={{ scale: 1.02 }}
+                    whileTap={{ scale: 0.98 }}
+                    onClick={() => window.open('https://www.linkedin.com/in/tanishq-gohil28/', '_blank')}
+                  >
+                    Let's Connect
                   </motion.button>
                 </div>
               </div>

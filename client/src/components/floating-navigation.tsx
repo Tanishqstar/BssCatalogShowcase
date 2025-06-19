@@ -15,13 +15,13 @@ export default function FloatingNavigation() {
   };
 
   return (
-    <motion.div 
-      className="fixed bottom-8 left-1/2 transform -translate-x-1/2 z-50"
-      initial={{ opacity: 0, y: 20 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ delay: 1, duration: 0.6 }}
-    >
-      <nav className="bg-nav-dark px-4 py-2 rounded-2xl">
+    <div className="fixed bottom-8 left-0 right-0 z-50 flex justify-center">
+      <motion.nav 
+        className="bg-nav-dark px-4 py-2 rounded-2xl"
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ delay: 1, duration: 0.6 }}
+      >
         <div className="flex items-center gap-2">
           {/* Up Arrow Button - Square */}
           <motion.button 
@@ -64,7 +64,7 @@ export default function FloatingNavigation() {
             BOOK A MEETING
           </motion.button>
         </div>
-      </nav>
-    </motion.div>
+      </motion.nav>
+    </div>
   );
 }

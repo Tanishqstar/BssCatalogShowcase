@@ -215,7 +215,7 @@ export default function BssOssShowcase() {
 
           {/* Tab Navigation */}
           <div className="flex justify-center mb-12">
-            <div className="w-full max-w-7xl bg-white/10 backdrop-blur-sm rounded-3xl p-6">
+            <div className="w-full max-w-7xl">
               <div className="flex gap-2 justify-center">
                 {tabs.map((tab, index) => (
                   <motion.div

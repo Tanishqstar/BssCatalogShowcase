@@ -216,13 +216,13 @@ export default function BssOssShowcase() {
           {/* Tab Navigation */}
           <div className="flex justify-center mb-12">
             <div className="w-full max-w-7xl">
-              <div className="flex gap-2 justify-center">
+              <div className="flex gap-3 justify-center">
                 {tabs.map((tab, index) => (
                   <motion.div
                     key={tab.id}
                     className="relative overflow-hidden rounded-2xl"
                     animate={{
-                      width: activeTab === index ? 320 : 140
+                      width: activeTab === index ? 380 : 160
                     }}
                     transition={{ duration: 0.6, ease: "easeInOut" }}
                     style={{
@@ -278,43 +278,45 @@ export default function BssOssShowcase() {
 
           {/* Tab Content */}
           <div className="relative min-h-[400px]">
-            <AnimatePresence mode="wait">
-              <motion.div
-                key={activeTab}
-                className="grid lg:grid-cols-2 gap-12 items-center"
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: -20 }}
-                transition={{ duration: 0.4, ease: "easeInOut" }}
-              >
-                <div className="space-y-6">
-                  <motion.h3 
-                    className="text-3xl lg:text-4xl font-bold text-gray-800"
-                    initial={{ opacity: 0, x: -20 }}
-                    animate={{ opacity: 1, x: 0 }}
-                    transition={{ delay: 0.2, duration: 0.4 }}
-                  >
-                    {tabs[activeTab].title}
-                  </motion.h3>
-                  <motion.p 
-                    className="text-lg text-gray-600 leading-relaxed max-w-lg"
-                    initial={{ opacity: 0, x: -20 }}
-                    animate={{ opacity: 1, x: 0 }}
-                    transition={{ delay: 0.3, duration: 0.4 }}
-                  >
-                    {tabs[activeTab].description}
-                  </motion.p>
-                </div>
-                <motion.div 
-                  className="flex justify-center lg:justify-end"
-                  initial={{ opacity: 0, scale: 0.8 }}
-                  animate={{ opacity: 1, scale: 1 }}
-                  transition={{ delay: 0.4, duration: 0.4 }}
+            <div className="w-full max-w-7xl mx-auto bg-white/10 backdrop-blur-sm rounded-3xl p-8">
+              <AnimatePresence mode="wait">
+                <motion.div
+                  key={activeTab}
+                  className="grid lg:grid-cols-2 gap-12 items-center"
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: -20 }}
+                  transition={{ duration: 0.4, ease: "easeInOut" }}
                 >
-                  {tabs[activeTab].mockup}
+                  <div className="space-y-6">
+                    <motion.h3 
+                      className="text-3xl lg:text-4xl font-bold text-gray-800"
+                      initial={{ opacity: 0, x: -20 }}
+                      animate={{ opacity: 1, x: 0 }}
+                      transition={{ delay: 0.2, duration: 0.4 }}
+                    >
+                      {tabs[activeTab].title}
+                    </motion.h3>
+                    <motion.p 
+                      className="text-lg text-gray-600 leading-relaxed max-w-lg"
+                      initial={{ opacity: 0, x: -20 }}
+                      animate={{ opacity: 1, x: 0 }}
+                      transition={{ delay: 0.3, duration: 0.4 }}
+                    >
+                      {tabs[activeTab].description}
+                    </motion.p>
+                  </div>
+                  <motion.div 
+                    className="flex justify-center lg:justify-end"
+                    initial={{ opacity: 0, scale: 0.8 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    transition={{ delay: 0.4, duration: 0.4 }}
+                  >
+                    {tabs[activeTab].mockup}
+                  </motion.div>
                 </motion.div>
-              </motion.div>
-            </AnimatePresence>
+              </AnimatePresence>
+            </div>
           </div>
         </div>
       </div>

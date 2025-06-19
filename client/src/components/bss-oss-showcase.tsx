@@ -215,62 +215,64 @@ export default function BssOssShowcase() {
 
           {/* Tab Navigation */}
           <div className="flex justify-center mb-12">
-            <div className="flex gap-1">
-              {tabs.map((tab, index) => (
-                <motion.div
-                  key={tab.id}
-                  className="relative overflow-hidden rounded-2xl"
-                  animate={{
-                    width: activeTab === index ? 280 : 120
-                  }}
-                  transition={{ duration: 0.6, ease: "easeInOut" }}
-                  style={{
-                    backgroundColor: activeTab === index 
-                      ? `${tab.bgColor}40` // Light shade for background
-                      : tab.bgColor
-                  }}
-                >
-                  {/* Progress Fill Background */}
-                  {activeTab === index && (
-                    <motion.div
-                      className="absolute inset-0 rounded-2xl"
-                      style={{ backgroundColor: tab.bgColor }}
-                      initial={{ width: "0%" }}
-                      animate={{ width: `${progress}%` }}
-                      transition={{ duration: 0.1, ease: "linear" }}
-                    />
-                  )}
-                  
-                  <motion.button
-                    className="h-14 w-full flex items-center rounded-2xl transition-all duration-300 overflow-hidden relative z-10"
-                    onClick={() => handleTabClick(index)}
-                    whileTap={{ scale: 0.98 }}
+            <div className="w-full max-w-7xl bg-white/10 backdrop-blur-sm rounded-3xl p-6">
+              <div className="flex gap-2 justify-center">
+                {tabs.map((tab, index) => (
+                  <motion.div
+                    key={tab.id}
+                    className="relative overflow-hidden rounded-2xl"
+                    animate={{
+                      width: activeTab === index ? 320 : 140
+                    }}
+                    transition={{ duration: 0.6, ease: "easeInOut" }}
+                    style={{
+                      backgroundColor: activeTab === index 
+                        ? `${tab.bgColor}40` // Light shade for background
+                        : tab.bgColor
+                    }}
                   >
-                    {/* Icon Block */}
-                    <div 
-                      className="w-11 h-11 rounded-xl flex items-center justify-center flex-shrink-0 ml-1.5"
-                      style={{ backgroundColor: activeTab === index ? 'rgba(255,255,255,0.3)' : 'rgba(255,255,255,0.5)' }}
-                    >
-                      <div className="text-gray-700">
-                        {tab.icon}
-                      </div>
-                    </div>
+                    {/* Progress Fill Background */}
+                    {activeTab === index && (
+                      <motion.div
+                        className="absolute inset-0 rounded-2xl"
+                        style={{ backgroundColor: tab.bgColor }}
+                        initial={{ width: "0%" }}
+                        animate={{ width: `${progress}%` }}
+                        transition={{ duration: 0.1, ease: "linear" }}
+                      />
+                    )}
                     
-                    {/* Label Container */}
-                    <motion.div 
-                      className="flex-1 px-4 overflow-hidden"
-                      animate={{
-                        opacity: activeTab === index ? 1 : 0.8
-                      }}
-                      transition={{ duration: 0.3 }}
+                    <motion.button
+                      className="h-16 w-full flex items-center rounded-2xl transition-all duration-300 overflow-hidden relative z-10"
+                      onClick={() => handleTabClick(index)}
+                      whileTap={{ scale: 0.98 }}
                     >
-                      <span className="font-mono font-medium text-xs uppercase tracking-wider text-gray-700 whitespace-nowrap">
-                        {tab.name}
-                      </span>
-                    </motion.div>
-                  </motion.button>
-                </motion.div>
-              ))}
+                      {/* Icon Block */}
+                      <div 
+                        className="w-12 h-12 rounded-xl flex items-center justify-center flex-shrink-0 ml-2"
+                        style={{ backgroundColor: activeTab === index ? 'rgba(255,255,255,0.3)' : 'rgba(255,255,255,0.5)' }}
+                      >
+                        <div className="text-gray-700">
+                          {tab.icon}
+                        </div>
+                      </div>
+                      
+                      {/* Label Container */}
+                      <motion.div 
+                        className="flex-1 px-5 pr-3 overflow-hidden"
+                        animate={{
+                          opacity: activeTab === index ? 1 : 0.8
+                        }}
+                        transition={{ duration: 0.3 }}
+                      >
+                        <span className="font-mono font-medium text-sm uppercase tracking-wider text-gray-700 whitespace-nowrap">
+                          {tab.name}
+                        </span>
+                      </motion.div>
+                    </motion.button>
+                  </motion.div>
+                ))}
+              </div>
             </div>
           </div>
 

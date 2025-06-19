@@ -16,10 +16,10 @@ const tabs: TabData[] = [
   {
     id: 'billing',
     name: 'BILLING',
-    icon: <FileText className="w-4 h-4" />,
+    icon: <FileText className="w-5 h-5" />,
     title: 'Real-Time Convergent Billing',
     description: 'Instantaneous, accurate billing across all services and platforms. Streamline revenue assurance with intelligent automation.',
-    bgColor: 'bg-tab-billing',
+    bgColor: '#FFD9D9',
     mockup: (
       <div className="bg-white/90 backdrop-blur rounded-2xl shadow-2xl p-6 w-80 transform rotate-3 hover:rotate-0 transition-transform duration-300">
         <div className="flex items-center justify-between mb-4">
@@ -57,10 +57,10 @@ const tabs: TabData[] = [
   {
     id: 'charging',
     name: 'CHARGING',
-    icon: <Zap className="w-4 h-4" />,
+    icon: <Zap className="w-5 h-5" />,
     title: 'Online Charging System',
     description: 'AI-powered insights that predict customer needs and drive personalized experiences in real-time.',
-    bgColor: 'bg-tab-charging',
+    bgColor: '#FFEFAF',
     mockup: (
       <div className="bg-white/90 backdrop-blur rounded-2xl shadow-2xl p-6 w-80 transform -rotate-2 hover:rotate-0 transition-transform duration-300">
         <div className="mb-6">
@@ -101,10 +101,10 @@ const tabs: TabData[] = [
   {
     id: 'catalog',
     name: 'CATALOG',
-    icon: <Layers className="w-4 h-4" />,
+    icon: <Layers className="w-5 h-5" />,
     title: 'Product Catalog',
     description: 'Intuitive tools that empower customers to manage their accounts with ease, freeing up your team.',
-    bgColor: 'bg-tab-catalog',
+    bgColor: '#E9FFE1',
     mockup: (
       <div className="bg-white/90 backdrop-blur rounded-2xl shadow-2xl p-6 w-80 transform rotate-1 hover:rotate-0 transition-transform duration-300">
         <div className="mb-4">
@@ -132,10 +132,10 @@ const tabs: TabData[] = [
   {
     id: 'events',
     name: 'EVENTS',
-    icon: <Calendar className="w-4 h-4" />,
+    icon: <Calendar className="w-5 h-5" />,
     title: 'Event Management',
     description: 'Comprehensive event tracking and analytics that provide deep insights into customer behavior and system performance.',
-    bgColor: 'bg-tab-events',
+    bgColor: '#A9F7FF',
     mockup: (
       <div className="bg-white/90 backdrop-blur rounded-2xl shadow-2xl p-6 w-80 transform -rotate-1 hover:rotate-0 transition-transform duration-300">
         <div className="mb-6">
@@ -215,32 +215,58 @@ export default function BssOssShowcase() {
 
           {/* Tab Navigation */}
           <div className="flex justify-center mb-12">
-            <div className="flex bg-white/20 backdrop-blur-sm rounded-full p-2 neumorphic-shadow">
+            <div className="flex bg-[#A0B3BD] rounded-2xl p-3 gap-3">
               {tabs.map((tab, index) => (
-                <motion.button
+                <motion.div
                   key={tab.id}
-                  className={`tab-button-container flex items-center space-x-3 px-6 py-4 rounded-full transition-all duration-300 ${
-                    activeTab === index ? tab.bgColor : 'bg-white/10 hover:bg-white/20'
-                  }`}
-                  onClick={() => handleTabClick(index)}
-                  whileHover={{ scale: 1.02 }}
-                  whileTap={{ scale: 0.98 }}
+                  className="relative overflow-hidden"
+                  animate={{
+                    width: activeTab === index ? 280 : 120
+                  }}
+                  transition={{ duration: 0.6, ease: "easeInOut" }}
                 >
-                  <div className="w-8 h-8 bg-white/30 rounded-lg flex items-center justify-center">
-                    {tab.icon}
-                  </div>
-                  <span className="font-semibold text-gray-700 text-sm uppercase tracking-wide">
-                    {tab.name}
-                  </span>
+                  <motion.button
+                    className="h-12 w-full flex items-center rounded-xl transition-all duration-300 overflow-hidden"
+                    style={{ backgroundColor: '#ffffff' }}
+                    onClick={() => handleTabClick(index)}
+                    whileTap={{ scale: 0.98 }}
+                  >
+                    {/* Icon Block */}
+                    <div 
+                      className="w-10 h-10 rounded-xl flex items-center justify-center flex-shrink-0 ml-1"
+                      style={{ backgroundColor: tab.bgColor }}
+                    >
+                      <div className="text-gray-700">
+                        {tab.icon}
+                      </div>
+                    </div>
+                    
+                    {/* Label Container */}
+                    <motion.div 
+                      className="flex-1 px-3 overflow-hidden"
+                      animate={{
+                        opacity: activeTab === index ? 1 : 0.7
+                      }}
+                      transition={{ duration: 0.3 }}
+                    >
+                      <span className="font-mono font-medium text-xs uppercase tracking-wider text-gray-700 whitespace-nowrap">
+                        {tab.name}
+                      </span>
+                    </motion.div>
+                  </motion.button>
+                  
+                  {/* Progress Bar */}
                   {activeTab === index && (
-                    <div className="progress-container">
-                      <div 
-                        className="progress-bar"
-                        style={{ width: `${progress}%` }}
+                    <div className="absolute bottom-1 left-1 right-1 h-0.5 bg-gray-300 rounded-full overflow-hidden">
+                      <motion.div 
+                        className="h-full bg-gray-600 rounded-full"
+                        initial={{ width: "0%" }}
+                        animate={{ width: `${progress}%` }}
+                        transition={{ duration: 0.1, ease: "linear" }}
                       />
                     </div>
                   )}
-                </motion.button>
+                </motion.div>
               ))}
             </div>
           </div>

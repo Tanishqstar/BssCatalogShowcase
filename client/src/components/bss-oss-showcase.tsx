@@ -233,7 +233,7 @@ export default function BssOssShowcase() {
       </motion.div>
 
       {/* Main Content Area */}
-      <div className="flex-1 flex items-center justify-center px-6 py-20">
+      <div className="flex-1 flex items-center justify-center px-4 md:px-6 py-12 md:py-20">
         <div className="max-w-7xl w-full">
           {/* Header */}
           <motion.div 
@@ -256,7 +256,8 @@ export default function BssOssShowcase() {
           {/* Tab Navigation */}
           <div className="flex justify-center mb-12">
             <div className="w-full max-w-7xl">
-              <div className="flex gap-3 justify-center">
+              {/* Desktop Tab Navigation */}
+              <div className="hidden md:flex gap-3 justify-center">
                 {tabs.map((tab, index) => (
                   <motion.div
                     key={tab.id}
@@ -313,24 +314,52 @@ export default function BssOssShowcase() {
                   </motion.div>
                 ))}
               </div>
+
+              {/* Mobile Tab Navigation */}
+              <div className="md:hidden">
+                <div className="flex overflow-x-auto gap-2 pb-2 scrollbar-hide">
+                  {tabs.map((tab, index) => (
+                    <motion.button
+                      key={tab.id}
+                      onClick={() => handleTabClick(index)}
+                      className={`flex-shrink-0 px-4 py-3 rounded-xl flex items-center gap-2 min-w-max transition-all duration-300 ${
+                        activeTab === index 
+                          ? 'bg-white/20 backdrop-blur-sm' 
+                          : 'bg-white/10'
+                      }`}
+                      style={{
+                        backgroundColor: activeTab === index ? tab.bgColor : 'rgba(255,255,255,0.1)'
+                      }}
+                      whileTap={{ scale: 0.95 }}
+                    >
+                      <div className="text-gray-700">
+                        {tab.icon}
+                      </div>
+                      <span className="font-mono font-medium text-xs uppercase tracking-wider text-gray-700">
+                        {tab.name}
+                      </span>
+                    </motion.button>
+                  ))}
+                </div>
+              </div>
             </div>
           </div>
 
           {/* Tab Content */}
           <div className="relative min-h-[400px]">
-            <div className="w-full max-w-7xl mx-auto bg-white/10 backdrop-blur-sm rounded-3xl p-8">
+            <div className="w-full max-w-7xl mx-auto bg-white/10 backdrop-blur-sm rounded-3xl p-4 md:p-8">
               <AnimatePresence mode="wait">
                 <motion.div
                   key={activeTab}
-                  className="grid lg:grid-cols-2 gap-12 items-center"
+                  className="grid lg:grid-cols-2 gap-6 md:gap-12 items-center"
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
                   exit={{ opacity: 0, y: -20 }}
                   transition={{ duration: 0.4, ease: "easeInOut" }}
                 >
-                  <div className="space-y-6">
+                  <div className="space-y-4 md:space-y-6 order-2 lg:order-1">
                     <motion.h3 
-                      className={`text-3xl lg:text-4xl font-bold transition-colors duration-300 ${isDark ? 'text-gray-100' : 'text-gray-800'}`}
+                      className={`text-2xl md:text-3xl lg:text-4xl font-bold transition-colors duration-300 ${isDark ? 'text-gray-100' : 'text-gray-800'}`}
                       initial={{ opacity: 0, x: -20 }}
                       animate={{ opacity: 1, x: 0 }}
                       transition={{ delay: 0.2, duration: 0.4 }}
@@ -338,7 +367,7 @@ export default function BssOssShowcase() {
                       {tabs[activeTab].title}
                     </motion.h3>
                     <motion.p 
-                      className={`text-lg leading-relaxed max-w-lg transition-colors duration-300 ${isDark ? 'text-gray-300' : 'text-gray-600'}`}
+                      className={`text-base md:text-lg leading-relaxed max-w-lg transition-colors duration-300 ${isDark ? 'text-gray-300' : 'text-gray-600'}`}
                       initial={{ opacity: 0, x: -20 }}
                       animate={{ opacity: 1, x: 0 }}
                       transition={{ delay: 0.3, duration: 0.4 }}
@@ -347,12 +376,14 @@ export default function BssOssShowcase() {
                     </motion.p>
                   </div>
                   <motion.div 
-                    className="flex justify-center lg:justify-end"
+                    className="flex justify-center lg:justify-end order-1 lg:order-2"
                     initial={{ opacity: 0, scale: 0.8 }}
                     animate={{ opacity: 1, scale: 1 }}
                     transition={{ delay: 0.4, duration: 0.4 }}
                   >
-                    {tabs[activeTab].mockup}
+                    <div className="transform scale-75 md:scale-100">
+                      {tabs[activeTab].mockup}
+                    </div>
                   </motion.div>
                 </motion.div>
               </AnimatePresence>

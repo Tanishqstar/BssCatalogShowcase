@@ -58,7 +58,7 @@ export default function LoadingScreen({ onComplete }: LoadingScreenProps) {
           {/* Central Number Display */}
           <div className="fixed inset-0 flex items-center justify-center flex-col">
             <motion.div
-              className="font-mono text-9xl font-thin text-foreground tracking-wider"
+              className="font-mono text-6xl md:text-8xl lg:text-9xl font-thin text-foreground tracking-wider"
               style={{ 
                 fontStretch: 'ultra-condensed',
                 letterSpacing: '0.1em'
@@ -84,7 +84,7 @@ export default function LoadingScreen({ onComplete }: LoadingScreenProps) {
                   <motion.div
                     className="h-1 bg-foreground rounded-full"
                     initial={{ width: 0 }}
-                    animate={{ width: "400px" }}
+                    animate={{ width: "min(400px, 80vw)" }}
                     transition={{ 
                       duration: 1,
                       ease: "easeInOut"

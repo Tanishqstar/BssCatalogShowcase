@@ -1,3 +1,7 @@
+@import '@fontsource/ibm-plex-mono/400.css';
+@import '@fontsource/ibm-plex-mono/500.css';
+@import '@fontsource/ibm-plex-mono/600.css';
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -31,6 +35,7 @@
   --tab-catalog: hsl(98, 57%, 91%);
   --tab-events: hsl(192, 100%, 91%);
   --nav-dark: hsl(202, 20%, 22%);
+  --nav-text: hsl(200, 25%, 78%);
   --cta-cyan: hsl(184, 85%, 73%);
 }
 
@@ -99,6 +104,14 @@
   
   .text-cta-cyan {
     color: var(--cta-cyan);
+  }
+  
+  .text-nav-text {
+    color: var(--nav-text);
+  }
+  
+  .text-nav-dark {
+    color: var(--nav-dark);
   }
 }
 

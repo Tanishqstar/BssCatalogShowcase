@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { FileText, Zap, Layers, Calendar, Film, Apple, Podcast, Moon, Sun } from 'lucide-react';
+import LoadingScreen from './loading-screen';
 
 interface TabData {
   id: string;
@@ -171,6 +172,7 @@ export default function BssOssShowcase() {
   const [activeTab, setActiveTab] = useState(0);
   const [progress, setProgress] = useState(0);
   const [isDark, setIsDark] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -194,6 +196,14 @@ export default function BssOssShowcase() {
   const toggleTheme = () => {
     setIsDark(!isDark);
   };
+
+  const handleLoadingComplete = () => {
+    setIsLoading(false);
+  };
+
+  if (isLoading) {
+    return <LoadingScreen onComplete={handleLoadingComplete} />;
+  }
 
   return (
     <div className={`min-h-screen flex flex-col transition-colors duration-300 ${isDark ? 'bg-gray-900' : 'bg-primary-custom'}`}>

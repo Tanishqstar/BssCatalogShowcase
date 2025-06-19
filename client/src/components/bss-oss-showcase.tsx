@@ -232,13 +232,13 @@ export default function BssOssShowcase() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
           >
-            <p className="text-gray-600 text-sm font-medium tracking-wider uppercase mb-4">
+            <p className={`text-sm font-medium tracking-wider uppercase mb-4 transition-colors duration-300 ${isDark ? 'text-gray-400' : 'text-gray-600'}`}>
               ( EFFICIENCY, SCALABILITY, AND AGILITY )
             </p>
-            <h1 className="text-5xl md:text-6xl lg:text-7xl font-bold text-white mb-4">
+            <h1 className={`text-5xl md:text-6xl lg:text-7xl font-bold mb-4 transition-colors duration-300 ${isDark ? 'text-gray-100' : 'text-white'}`}>
               Unparalleled
             </h1>
-            <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold text-gray-800">
+            <h2 className={`text-4xl md:text-5xl lg:text-6xl font-bold transition-colors duration-300 ${isDark ? 'text-gray-300' : 'text-gray-800'}`}>
               BSS/OSS Capabilities
             </h2>
           </motion.div>
@@ -320,7 +320,7 @@ export default function BssOssShowcase() {
                 >
                   <div className="space-y-6">
                     <motion.h3 
-                      className="text-3xl lg:text-4xl font-bold text-gray-800"
+                      className={`text-3xl lg:text-4xl font-bold transition-colors duration-300 ${isDark ? 'text-gray-100' : 'text-gray-800'}`}
                       initial={{ opacity: 0, x: -20 }}
                       animate={{ opacity: 1, x: 0 }}
                       transition={{ delay: 0.2, duration: 0.4 }}
@@ -328,7 +328,7 @@ export default function BssOssShowcase() {
                       {tabs[activeTab].title}
                     </motion.h3>
                     <motion.p 
-                      className="text-lg text-gray-600 leading-relaxed max-w-lg"
+                      className={`text-lg leading-relaxed max-w-lg transition-colors duration-300 ${isDark ? 'text-gray-300' : 'text-gray-600'}`}
                       initial={{ opacity: 0, x: -20 }}
                       animate={{ opacity: 1, x: 0 }}
                       transition={{ delay: 0.3, duration: 0.4 }}

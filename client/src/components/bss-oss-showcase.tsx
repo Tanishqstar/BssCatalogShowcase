@@ -242,13 +242,13 @@ export default function BssOssShowcase() {
                   )}
                   
                   <motion.button
-                    className="h-12 w-full flex items-center rounded-2xl transition-all duration-300 overflow-hidden relative z-10"
+                    className="h-14 w-full flex items-center rounded-2xl transition-all duration-300 overflow-hidden relative z-10"
                     onClick={() => handleTabClick(index)}
                     whileTap={{ scale: 0.98 }}
                   >
                     {/* Icon Block */}
                     <div 
-                      className="w-10 h-10 rounded-xl flex items-center justify-center flex-shrink-0 ml-1"
+                      className="w-11 h-11 rounded-xl flex items-center justify-center flex-shrink-0 ml-1.5"
                       style={{ backgroundColor: activeTab === index ? 'rgba(255,255,255,0.3)' : 'rgba(255,255,255,0.5)' }}
                     >
                       <div className="text-gray-700">
@@ -258,7 +258,7 @@ export default function BssOssShowcase() {
                     
                     {/* Label Container */}
                     <motion.div 
-                      className="flex-1 px-3 overflow-hidden"
+                      className="flex-1 px-4 overflow-hidden"
                       animate={{
                         opacity: activeTab === index ? 1 : 0.8
                       }}
